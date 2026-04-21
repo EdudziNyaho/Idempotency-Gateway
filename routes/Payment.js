@@ -31,6 +31,12 @@ router.post('/', async (req, res) => {
     });
   }
 
+  // Mark key as pending (in-flight) for race condition handling
+  MemoryStore.setKey(idempotencyKey, {
+    status: 'pending',
+    body: req.body,
+  });
+
   // Simulate payment processing (2 second delay)
   await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -44,8 +50,9 @@ router.post('/', async (req, res) => {
     message: `Charged ${amount} ${currency}`,
   };
 
-  // Save to memory store
+  // Save to memory store and mark as complete
   MemoryStore.setKey(idempotencyKey, {
+    status: 'complete',
     response,
     body: req.body,
   });
