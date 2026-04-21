@@ -1,9 +1,10 @@
 {
   "name": "idempotency-gateway",
   "version": "1.0.0",
-  "description": "This challenge is designed to test your ability to bridge Computer Science fundamentals with Modern Backend Engineering.",
+  "description": "A REST API that ensures payments are processed exactly once using idempotency keys",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
