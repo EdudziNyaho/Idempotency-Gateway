@@ -57,6 +57,15 @@ router.post('/', async (req, res) => {
     body: req.body,
   });
 
+  // Save to transaction store with API key
+  MemoryStore.saveTransaction(transactionId, {
+    transactionId,
+    amount,
+    currency,
+    apiKey: req.headers['x-api-key'],
+    timestamp: new Date().toISOString(),
+  });
+
   // Return 201 Created
   return res.status(201).json(response);
 });
